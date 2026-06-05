@@ -26,21 +26,6 @@ body{
     padding:20px;
 }
 
-/* bouton fullscreen */
-#fsBtn{
-    position:fixed;
-    top:15px;
-    right:15px;
-    padding:10px 14px;
-    border:none;
-    border-radius:20px;
-    background:#4a6480;
-    color:white;
-    font-size:12px;
-    cursor:pointer;
-    z-index:9999;
-}
-
 /* titre */
 h1{
     color:#4a6480;
@@ -175,8 +160,6 @@ p{
 
 <body>
 
-<button id="fsBtn">plein écran</button>
-
 <h1>Un autre cadeau vous attend...</h1>
 
 <div class="box-container">
@@ -279,19 +262,6 @@ function createMagic(){
         setTimeout(() => el.remove(), 7000);
     }
 }
-
-/* 📱 fullscreen (PWA fallback) */
-document.getElementById("fsBtn").addEventListener("click", () => {
-
-    const doc = document.documentElement;
-
-    if(doc.requestFullscreen){
-        doc.requestFullscreen();
-    } else if(doc.webkitRequestFullscreen){
-        doc.webkitRequestFullscreen();
-    } else if(doc.msRequestFullscreen){
-        doc.msRequestFullscreen();
-    }
 
 });
 
