@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Une merveilleuse nouvelle</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:linear-gradient(135deg,#f7f9ff,#e8f0ff);
+    font-family:Georgia, serif;
+    overflow:hidden;
+}
+
+h1{
+    color:#4a6480;
+    margin-bottom:40px;
+    font-weight:normal;
+}
+
+.box-container{
+    perspective:1000px;
+}
+
+.gift-box{
+    position:relative;
+    width:220px;
+    height:160px;
+    cursor:pointer;
+}
+
+.box{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:120px;
+    background:#9cc8f5;
+    border-radius:0 0 12px 12px;
+}
+
+.ribbon-vertical{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    width:24px;
+    height:120px;
+    background:white;
+}
+
+.ribbon-horizontal{
+    position:absolute;
+    top:40px;
+    width:100%;
+    height:24px;
+    background:white;
+}
+
+.lid{
+    position:absolute;
+    top:0;
+    width:100%;
+    height:50px;
+    background:#7fb6f0;
+    border-radius:12px;
+    transform-origin:bottom center;
+    transition:transform 1.5s ease;
+}
+
+.lid::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:10px;
+    transform:translateX(-50%);
+    width:60px;
+    height:20px;
+    border:6px solid white;
+    border-radius:50%;
+}
+
+.open .lid{
+    transform:rotateX(-130deg);
+}
+
+.message{
+    opacity:0;
+    max-width:700px;
+    text-align:center;
+    margin-top:50px;
+    transition:opacity 2s ease;
+    padding:20px;
+}
+
+.message.show{
+    opacity:1;
+}
+
+.message h2{
+    color:#4a6480;
+    font-size:2rem;
+    margin-bottom:20px;
+    font-weight:normal;
+}
+
+.message h3{
+    color:#5b7693;
+    font-size:3.5rem;
+    margin:25px 0;
+}
+
+.message p{
+    color:#667a92;
+    font-size:1.2rem;
+    line-height:1.8;
+}
+
+.floating{
+    position:absolute;
+    top:-50px;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+.fade-step{
+    opacity:0;
+    transition:opacity 1.5s ease;
+}
+
+.fade-step.visible{
+    opacity:1;
+}
+
+</style>
+</head>
+<body>
+
+<h1>Un autre cadeau vous attend...</h1>
+
+<div class="box-container">
+    <div class="gift-box" id="giftBox">
+
+        <div class="lid"></div>
+
+        <div class="box">
+            <div class="ribbon-vertical"></div>
+            <div class="ribbon-horizontal"></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="message" id="message">
+
+    <div id="step1" class="fade-step">
+        <h2>Depuis plusieurs mois...</h2>
+        <p>nous gardons précieusement un petit secret.</p>
+    </div>
+
+    <div id="step2" class="fade-step" style="margin-top:40px;">
+        <p>Si petit, que nous avons pu l´emmener avec nous. Aujourd'hui, nous avons le bonheur de vous annoncer qu´un évènement exceptionnel est sur le point de se produire.</p>
+    </div>
+
+    <div id="step3" class="fade-step">
+        <h3>Rendez-vous le 22 décembre 2026 à Berlin.</h3>
+
+        <p style="margin-top:30px;">
+            Une merveilleuse aventure commence.
+        </p>
+    </div>
+
+</div>
+
+<script>
+
+const giftBox = document.getElementById("giftBox");
+
+giftBox.addEventListener("click", () => {
+
+    if(giftBox.classList.contains("open")) return;
+
+    giftBox.classList.add("open");
+
+    createMagic();
+
+    const message =
+        document.getElementById("message");
+
+    setTimeout(() => {
+        message.classList.add("show");
+    }, 1200);
+
+    setTimeout(() => {
+        document
+        .getElementById("step1")
+        .classList.add("visible");
+    }, 1800);
+
+    setTimeout(() => {
+        document
+        .getElementById("step2")
+        .classList.add("visible");
+    }, 3500);
+
+    setTimeout(() => {
+        document
+        .getElementById("step3")
+        .classList.add("visible");
+    }, 5200);
+
+});
+
+function createMagic(){
+
+    const symbols = [
+        "⭐",
+        "✨",
+        "🩵",
+        "💛"
+    ];
+
+    for(let i=0;i<50;i++){
+
+        const item =
+            document.createElement("div");
+
+        item.className = "floating";
+
+        item.innerHTML =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+        item.style.left =
+            Math.random()*100 + "vw";
+
+        item.style.fontSize =
+            (16 + Math.random()*22) + "px";
+
+        item.style.animationDuration =
+            (4 + Math.random()*3) + "s";
+
+        document.body.appendChild(item);
+
+        setTimeout(() => {
+            item.remove();
+        }, 8000);
+    }
+}
+
+</script>
+
+</body>
+</html>
+```
